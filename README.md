@@ -1,6 +1,6 @@
 # Lifecycle Events on React
 
-> ##-The Lifecycle function for render
+## -The Lifecycle function for render
 
 > Render : componentWillMount() -> render() -> componentDidMount()
 
