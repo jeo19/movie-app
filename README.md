@@ -8,4 +8,4 @@
 
 > Update : componentWillReceiveProps( ) -> shouldComponentUpdate( ) -> componentWillUpdate( ) -> render( ) -> componentDidUpdate( )
 
-### It's able to make infinite scroll to use state.
+### It's able to make infinite scroll with using state.
