@@ -4,39 +4,35 @@ import Movie from './Movie';
 class App extends Component {
   state = {};
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        movies: [
-          {
-            title: 'Star wars',
-            poster:
-              'https://c.ndtvimg.com/star-wars-instagram_625x300_1526457978394.jpg?output-quality=70&output-format=webp'
-          },
-          {
-            title: 'The old boys',
-            poster:
-              'https://m.media-amazon.com/images/M/MV5BOTM5MjEzNDAzN15BMl5BanBnXkFtZTcwNjg1OTk5OA@@._V1_SY1000_CR0,0,706,1000_AL_.jpg'
-          },
-          {
-            title: 'Spider man',
-            poster:
-              'https://superclub.videotron.com/media/catalog/product/cache/image/500x711/e9c3970ab036de70892d86c6d221abfe/v/a/va_14.png'
-          },
-          {
-            title: 'Bat man',
-            poster:
-              'https://http2.mlstatic.com/batman-arkham-knight-premium-edition-34-dlcs-envio-imediato-D_NQ_NP_792976-MLB26931079202_022018-F.webp'
-          }
-        ]
-      });
-    }, 5000);
+    this._getMovies();
   }
   _renderMovies = () => {
-    const movies = this.state.movies.map((movie, index) => {
-      return <Movie title={movie.title} poster={movie.poster} key={index} />;
+    const movies = this.state.movies.map(movie => {
+      return (
+        <Movie
+          title={movie.title}
+          poster={movie.medium_cover_image}
+          key={movie.id}
+        />
+      );
     });
     return movies;
   };
+  _getMovies = async () => {
+    const movies = await this._callApi();
+    this.setState({
+      movies
+    });
+  };
+  _callApi = () => {
+    return fetch(
+      'https://yts.am/api/v2/list_movies.json?sort_by=download_count'
+    )
+      .then(response => response.json())
+      .then(json => json.data.movies)
+      .catch(err => console.log(err));
+  };
+
   render() {
     return (
       <div className="App">
